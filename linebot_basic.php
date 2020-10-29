@@ -32,6 +32,21 @@ foreach ($request_json['events'] as $event)
 	//$send_result = send_reply_message('https://api.line.me/v2/bot/message/reply', $post_header, $post_body);
 }
 
+function mySQL_selectAll($url)
+{
+	$result = file_get_contents($url);
+	
+	$result_json = json_decode($result, true); //var_dump($result_json);
+	
+	$data = "ผลลัพธ์:\r\n";
+		
+	foreach($result_json as $values) {
+		$data .= $values["stuid"] . " " . $values["fullname"] . " " ."\r\n";
+	}
+	
+	return $data;
+}
+
 function replyMessage($url, $post_header, $post_body)
 {
         $context = stream_context_create([
