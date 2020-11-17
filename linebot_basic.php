@@ -12,9 +12,9 @@ foreach ($request_json['events'] as $event)
 	{
 		if($event['message']['type'] == 'text')
 		{
-			$text = $event['message']['text'];
+			//$text = $event['message']['text'];
 			
-			$reply_message = 'ฉันได้รับข้อความ '. $text.' ของคุณแล้ว!';   
+			//$reply_message = 'ฉันได้รับข้อความ '. $text.' ของคุณแล้ว!';   
 			//$reply_message = mySQL_selectAll('http://s61160179.kantit.com/json_select.php');
 			if($txts[0]." ".$txts[1] == "ขอรายชื่อนิสิต รหัส"){
 					$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php?sid='.$txts[2]);
