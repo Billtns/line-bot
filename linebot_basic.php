@@ -34,7 +34,7 @@ foreach ($request_json['events'] as $event)
 			
 				if($arr[1] == "ฉันต้องการค้นหาข้อมูลนิสิตชื่อ"){
 					$name = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
-					foreach($result_json as $values) {
+					foreach($name as $values) {
 						$data .= $values["user_stuid"] . " " . $values["user_firstname"] . " " . $values["user_lastname"] . "\r\n";
 					}
 					$reply_message = $data;
