@@ -18,11 +18,11 @@ foreach ($request_json['events'] as $event)
 			//$reply_message = mySQL_selectAll('http://s61160179.kantit.com/json_select.php');
 			
 				
-				$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
+				//$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
 				
 				
 				
-				//$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php?sid='.$text);	
+				$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php?sid='.$text);	
 			
 			
 		} else {
