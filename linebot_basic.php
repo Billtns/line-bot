@@ -19,7 +19,7 @@ foreach ($request_json['events'] as $event)
 			//$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
 			//$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php?sid='.$text);
 			
-			f($txts[0] == "@บอท"){
+			if($txts[0] == "@บอท"){
 				
 				$reply_message = "กรุณาใช้รูปแบบคำสั่งที่ถูกต้องงงงง!!\n";
 				
