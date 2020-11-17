@@ -26,7 +26,7 @@ foreach ($request_json['events'] as $event)
 				$reply_message .= "ฉันมีบริการให้คุณสั่งได้ ดังนี้...\n";
 				
 				$reply_message .= "พิมพ์ว่า \"@บอท ขอรายชื่อนิสิตทั้งหมด\"\n";
-				$reply_message .= "พิมพ์ว่า \" @บอท ฉันต้องการค้นหาข้อมูลนิสิตชื่อ xxx\"\n";
+				$reply_message .= "พิมพ์ว่า \" @บอท ฉันต้องการค้นหาข้อมูลนิสิตนามสกุล xxx\"\n";
 				
 				if($arr[1] == "ขอรายชื่อนิสิตทั้งหมด"){
 					$name = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
@@ -36,7 +36,7 @@ foreach ($request_json['events'] as $event)
 					$reply_message = $data;
 				}
 			
-				if($arr[1] == "ฉันต้องการค้นหาข้อมูลนิสิตชื่อ"){
+				if($arr[1] == "ฉันต้องการค้นหาข้อมูลนิสิตนามสกุล"){
 					$name = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
 					foreach($name as $values) {
 						if($values["user_lastname"] == $arr[2]){
