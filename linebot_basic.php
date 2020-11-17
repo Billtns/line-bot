@@ -22,7 +22,7 @@ foreach ($request_json['events'] as $event)
 				
 				
 				
-				$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php?sid='.$txts[0]);	
+				$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php?sid='.$text);	
 			
 			
 		} else {
