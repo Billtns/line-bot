@@ -45,6 +45,16 @@ foreach ($request_json['events'] as $event)
 					}
 					$reply_message = $data;
 				}
+				
+				if($arr[1] == "ฉันต้องการค้นหาข้อมูลนิสิตชื่อ"){
+					$name = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
+					foreach($name as $values) {
+						if($values["user_firstname"] == 'นาย'.$arr[2]||$values["user_firstname"] == 'นางสาว'.$arr[2]){
+						$data .= $values["user_stuid"] . " " . $values["user_firstname"] . " " . $values["user_lastname"] . "\r\n";
+						}
+					}
+					$reply_message = $data;
+				}
 			}
 			
 		} else {
