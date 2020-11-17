@@ -18,7 +18,25 @@ foreach ($request_json['events'] as $event)
 			//$reply_message = mySQL_selectAll('http://s61160179.kantit.com/json_select.php');
 			//$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
 			//$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php?sid='.$text);
-			$reply_message = (explode(" ",$text));
+			$arr = explode(" ",$text);
+			if($arr[0] == "@บอท"){
+				
+				$reply_message = "กรุณาใช้รูปแบบคำสั่งที่ถูกต้องงงงง!!\n";
+				
+				$reply_message .= "ฉันมีบริการให้คุณสั่งได้ ดังนี้...\n";
+				
+				$reply_message .= "พิมพ์ว่า \"@บอท ขอรายชื่อนิสิตทั้งหมด\"\n";
+				$reply_message .= "พิมพ์ว่า \" @บอท ฉันต้องการค้นหาข้อมูลนิสิตชื่อ xxx\"\n";
+				
+				if($arr[1] == "ขอรายชื่อนิสิตทั้งหมด"){
+					$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
+				}
+			
+				if($arr[1] == "ฉันต้องการค้นหาข้อมูลนิสิตชื่อ"){
+					$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
+				}
+			}
+			
 		} else {
 			$reply_message = 'ฉันได้รับ '.$event['message']['type'].' ของคุณแล้ว!';
 		}
