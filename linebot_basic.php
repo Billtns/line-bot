@@ -29,13 +29,19 @@ foreach ($request_json['events'] as $event)
 				$reply_message .= "พิมพ์ว่า \" @บอท ฉันต้องการค้นหาข้อมูลนิสิตชื่อ xxx\"\n";
 				
 				if($arr[1] == "ขอรายชื่อนิสิตทั้งหมด"){
-					$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
+					$name = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
+					foreach($name as $values) {
+						$data .= $values["user_stuid"] . " " . $values["user_firstname"] . " " . $values["user_lastname"] . "\r\n";
+					}
+					$reply_message = $data;
 				}
 			
 				if($arr[1] == "ฉันต้องการค้นหาข้อมูลนิสิตชื่อ"){
 					$name = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
 					foreach($name as $values) {
+						if($values["user_lastname"] == $arr[2]){
 						$data .= $values["user_stuid"] . " " . $values["user_firstname"] . " " . $values["user_lastname"] . "\r\n";
+						}
 					}
 					$reply_message = $data;
 				}
