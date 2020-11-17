@@ -16,7 +16,7 @@ foreach ($request_json['events'] as $event)
 			
 			//$reply_message = 'ฉันได้รับข้อความ '. $text.' ของคุณแล้ว!';   
 			//$reply_message = mySQL_selectAll('http://s61160179.kantit.com/json_select.php');
-			if($txts[0] == "@บอท"){
+			
 				
 				$reply_message = "กรุณาใช้รูปแบบคำสั่งที่ถูกต้องงงงง!!\n";
 				
@@ -38,7 +38,7 @@ foreach ($request_json['events'] as $event)
 				if($txts[1]." ".$txts[2]." ".$txts[3] == "ขอรหัส FTP ของ"){
 					$reply_message = mySQL_selectFTP('http://bot.kantit.com/json_select_ftp.php?sid='.$txts[4]);					
 				}	
-			}
+			
 			
 		} else {
 			$reply_message = 'ฉันได้รับ '.$event['message']['type'].' ของคุณแล้ว!';
