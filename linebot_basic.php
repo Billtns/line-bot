@@ -34,8 +34,10 @@ foreach ($request_json['events'] as $event)
 			
 				if($arr[1] == "ฉันต้องการค้นหาข้อมูลนิสิตชื่อ"){
 					$name = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
-					$arr1 = explode(" ",$name);
-					$reply_message = $name[1];
+					foreach($result_json as $values) {
+						$data .= $values["user_stuid"] . " " . $values["user_firstname"] . " " . $values["user_lastname"] . "\r\n";
+					}
+					$reply_message = $data;
 				}
 			}
 			
@@ -62,11 +64,11 @@ function mySQL_selectAll($url)
 	
 	//$data = "ผลลัพธ์:\r\n";
 		
-	foreach($result_json as $values) {
-		$data .= $values["user_stuid"] . " " . $values["user_firstname"] . " " . $values["user_lastname"] . "\r\n";
-	}
+	//foreach($result_json as $values) {
+	//	$data .= $values["user_stuid"] . " " . $values["user_firstname"] . " " . $values["user_lastname"] . "\r\n";
+	//}
 	
-	return $data;
+	return $result_json;
 }
 
 function replyMessage($url, $post_header, $post_body)
