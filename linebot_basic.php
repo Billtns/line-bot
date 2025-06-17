@@ -3,8 +3,12 @@
 $channelAccessToken = '8agyzLfpfRb+pm9cUwh0K6EzYBVJSGNXfl24S5ebM5AelI807KTBZb9lqLOr7eko14wezoMz15Wq9Rr+4zLP3SRRF/RSgHQMrLpNKk/S9sQfY6G3yFPzTlqyxmb8rJoQlUb370w1+DMpI7nLjz3TDwdB04t89/1O/w1cDnyilFU='; // Access Token ค่าที่เราสร้างขึ้น
 
 $request = file_get_contents('php://input');   // Get request content
+file_put_contents('log.txt', print_r($data, true)); 
 
 $request_json = json_decode($request, true);   // Decode JSON request
+
+$userId = $request_json['events'][0]['source']['userId'];
+file_put_contents('userid.txt', $userId);
 
 foreach ($request_json['events'] as $event) {
 	if ($event['type'] == 'message') {
