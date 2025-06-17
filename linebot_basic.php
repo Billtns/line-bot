@@ -99,6 +99,48 @@ foreach ($request_json['events'] as $event) {
 					];
 					$reply_flex = $flexData;
 				}
+
+				if ($arr[1] == "valentine") {
+					$flexData = [
+						"type" => "flex",
+						"altText" => "valentine",
+						"contents" => [
+							"type" => "bubble",
+							"hero" => [
+								"type" => "image",
+								"url" => "https://snoopn4pnuts.com/cdn/shop/products/flag1010a.jpg?v=1579576740",
+								"size" => "full",
+								"aspectRatio" => "20:45",
+								"aspectMode" => "cover"
+							],
+							"body" => [
+								"type" => "box",
+								"layout" => "vertical",
+								"contents" => [
+									["type" => "text", "text" => "Valentine", "weight" => "bold", "size" => "xl"],
+									["type" => "text", "text" => "if you need click button"]
+								]
+							],
+							"footer" => [
+								"type" => "box",
+								"layout" => "vertical",
+								"spacing" => "sm",
+								"contents" => [
+									[
+										"type" => "button",
+										"style" => "primary",
+										"action" => [
+											"type" => "uri",
+											"label" => "link",
+											"uri" => "https://script.google.com/macros/s/AKfycbw4k2oYRBU-hCtu-k16ystdRoz0ZwUBd9Y6Wg8347x-A06TM8uTA_AFC4NYjAYu7uY6/exec"
+										]
+									]
+								]
+							]
+						]
+					];
+					$reply_flex = $flexData;
+				}
 			}
 		} else {
 			$reply_message = 'ฉันได้รับ ' . $event['message']['type'] . ' ของคุณแล้ว!';
