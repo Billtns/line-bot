@@ -110,7 +110,7 @@ foreach ($request_json['events'] as $event) {
 								"type" => "image",
 								"url" => "https://snoopn4pnuts.com/cdn/shop/products/flag1010a.jpg?v=1579576740",
 								"size" => "full",
-								"aspectRatio" => "20:45",
+								"aspectRatio" => "20:35",
 								"aspectMode" => "cover"
 							],
 							"body" => [
