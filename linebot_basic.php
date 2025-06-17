@@ -62,7 +62,7 @@ foreach ($request_json['events'] as $event) {
 							"type" => "bubble",
 							"hero" => [
 								"type" => "image",
-								"url" => "https://example.com/product.jpg",
+								"url" => "https://upload.wikimedia.org/wikipedia/commons/c/c8/Cappuccino_at_Sightglass_Coffee.jpg",
 								"size" => "full",
 								"aspectRatio" => "20:13",
 								"aspectMode" => "cover"
@@ -71,8 +71,8 @@ foreach ($request_json['events'] as $event) {
 								"type" => "box",
 								"layout" => "vertical",
 								"contents" => [
-									["type" => "text", "text" => "สินค้า: เสื้อยืด", "weight" => "bold", "size" => "xl"],
-									["type" => "text", "text" => "ราคา: 300 บาท"]
+									["type" => "text", "text" => "สินค้า: Cappuccino", "weight" => "bold", "ชื่อร้าน" => "Sightglass Coffee"],
+									["type" => "text", "text" => "สถานที่: San Francisco"]
 								]
 							],
 							"footer" => [
@@ -86,14 +86,14 @@ foreach ($request_json['events'] as $event) {
 										"action" => [
 											"type" => "uri",
 											"label" => "ดูเพิ่มเติม",
-											"uri" => "https://example.com"
+											"uri" => "https://th.m.wikipedia.org/wiki/%E0%B9%84%E0%B8%9F%E0%B8%A5%E0%B9%8C:Cappuccino_at_Sightglass_Coffee.jpg"
 										]
 									]
 								]
 							]
 						]
 					];
-					$reply_message = $flexData;
+					$reply_flex = $flexData;
 				}
 			}
 		} else {
@@ -105,7 +105,12 @@ foreach ($request_json['events'] as $event) {
 
 	// reply message
 	$post_header = array('Content-Type: application/json', 'Authorization: Bearer ' . $channelAccessToken);
-	$data = ['replyToken' => $event['replyToken'], 'messages' => [['type' => 'text', 'text' => $reply_message]]];
+	if($reply_flex){
+		$data = ['replyToken' => $event['replyToken'], 'messages' => [$reply_flex]];
+	}else{
+		$data = ['replyToken' => $event['replyToken'], 'messages' => [['type' => 'text', 'text' => $reply_message]]];
+	}
+	
 	$post_body = json_encode($data);
 	//$send_result = replyMessage('https://api.line.me/v2/bot/message/reply', $post_header, $post_body);
 	$send_result = send_reply_message('https://api.line.me/v2/bot/message/reply', $post_header, $post_body);
