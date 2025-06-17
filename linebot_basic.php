@@ -5,7 +5,7 @@ $channelAccessToken = '8agyzLfpfRb+pm9cUwh0K6EzYBVJSGNXfl24S5ebM5AelI807KTBZb9lq
 $request = file_get_contents('php://input');   // Get request content
 
 $request_json = json_decode($request, true);   // Decode JSON request
-file_put_contents('/tmp/userid.txt', print_r($request_json, true)); 
+file_put_contents('/tmp/log.txt', print_r($request_json, true)); 
 $userId = $request_json['events'][0]['source']['userId'];
 file_put_contents('/tmp/userid.txt', $userId);
 echo "userId: $userId";
