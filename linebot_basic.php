@@ -6,69 +6,107 @@ $request = file_get_contents('php://input');   // Get request content
 
 $request_json = json_decode($request, true);   // Decode JSON request
 
-foreach ($request_json['events'] as $event)
-{
-	if ($event['type'] == 'message') 
-	{
-		if($event['message']['type'] == 'text')
-		{
+foreach ($request_json['events'] as $event) {
+	if ($event['type'] == 'message') {
+		if ($event['message']['type'] == 'text') {
 			$text = $event['message']['text'];
-			
+
 			//$reply_message = 'ฉันได้รับข้อความ '. $text.' ของคุณแล้ว!';   
 			//$reply_message = mySQL_selectAll('http://s61160179.kantit.com/json_select.php');
 			//$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
 			//$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php?sid='.$text);
-			$arr = explode(" ",$text);
-			if($arr[0] == "@บอท"){
-				
+			$arr = explode(" ", $text);
+			if ($arr[0] == "@บอท") {
+
 				$reply_message = "กรุณาใช้รูปแบบคำสั่งที่ถูกต้องงงงง!!\n";
-				
+
 				$reply_message .= "ฉันมีบริการให้คุณสั่งได้ ดังนี้...\n";
-				
+
 				$reply_message .= "พิมพ์ว่า \"@บอท ขอรายชื่อนิสิตทั้งหมด\"\n";
 				$reply_message .= "พิมพ์ว่า \" @บอท ฉันต้องการค้นหาข้อมูลนิสิตชื่อ xxx\"\n";
 				$reply_message .= "พิมพ์ว่า \" @บอท ฉันต้องการค้นหาข้อมูลนิสิตนามสกุล xxx\"\n";
-				
-				if($arr[1] == "ขอรายชื่อนิสิตทั้งหมด"){
+
+				if ($arr[1] == "ขอรายชื่อนิสิตทั้งหมด") {
 					$name = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
-					foreach($name as $values) {
+					foreach ($name as $values) {
 						$data .= $values["user_stuid"] . " " . $values["user_firstname"] . " " . $values["user_lastname"] . "\r\n";
 					}
 					$reply_message = $data;
 				}
-			
-				if($arr[1] == "ฉันต้องการค้นหาข้อมูลนิสิตนามสกุล"){
+
+				if ($arr[1] == "ฉันต้องการค้นหาข้อมูลนิสิตนามสกุล") {
 					$name = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
-					foreach($name as $values) {
-						if($values["user_lastname"] == $arr[2]){
-						$data .= "พบชื่อ". $values["user_firstname"] . " " . $values["user_lastname"] . "\r\n";
+					foreach ($name as $values) {
+						if ($values["user_lastname"] == $arr[2]) {
+							$data .= "พบชื่อ" . $values["user_firstname"] . " " . $values["user_lastname"] . "\r\n";
 						}
 					}
 					$reply_message = $data;
 				}
-				
-				if($arr[1] == "ฉันต้องการค้นหาข้อมูลนิสิตชื่อ"){
+
+				if ($arr[1] == "ฉันต้องการค้นหาข้อมูลนิสิตชื่อ") {
 					$name = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
-					foreach($name as $values) {
-						if($values["user_firstname"] == 'นาย'.$arr[2]||$values["user_firstname"] == 'นางสาว'.$arr[2]){
-						$data .= "พบชื่อ". $values["user_firstname"] . " " . $values["user_lastname"] . "\r\n";
+					foreach ($name as $values) {
+						if ($values["user_firstname"] == 'นาย' . $arr[2] || $values["user_firstname"] == 'นางสาว' . $arr[2]) {
+							$data .= "พบชื่อ" . $values["user_firstname"] . " " . $values["user_lastname"] . "\r\n";
 						}
 					}
 					$reply_message = $data;
+				}
+
+				if ($arr[1] == "test") {
+					$flexData = [
+						"type" => "flex",
+						"altText" => "สรุปคำสั่งซื้อ",
+						"contents" => [
+							"type" => "bubble",
+							"hero" => [
+								"type" => "image",
+								"url" => "https://example.com/product.jpg",
+								"size" => "full",
+								"aspectRatio" => "20:13",
+								"aspectMode" => "cover"
+							],
+							"body" => [
+								"type" => "box",
+								"layout" => "vertical",
+								"contents" => [
+									["type" => "text", "text" => "สินค้า: เสื้อยืด", "weight" => "bold", "size" => "xl"],
+									["type" => "text", "text" => "ราคา: 300 บาท"]
+								]
+							],
+							"footer" => [
+								"type" => "box",
+								"layout" => "vertical",
+								"spacing" => "sm",
+								"contents" => [
+									[
+										"type" => "button",
+										"style" => "primary",
+										"action" => [
+											"type" => "uri",
+											"label" => "ดูเพิ่มเติม",
+											"uri" => "https://example.com"
+										]
+									]
+								]
+							]
+						]
+					];
+					$reply_message = $flexData;
 				}
 			}
-			
 		} else {
-			$reply_message = 'ฉันได้รับ '.$event['message']['type'].' ของคุณแล้ว!';
+			$reply_message = 'ฉันได้รับ ' . $event['message']['type'] . ' ของคุณแล้ว!';
 		}
 	} else {
-		$reply_message = 'ฉันได้รับ Event '.$event['type'].' ของคุณแล้ว!';
+		$reply_message = 'ฉันได้รับ Event ' . $event['type'] . ' ของคุณแล้ว!';
 	}
-	
+
 	// reply message
-	$post_header = array('Content-Type: application/json', 'Authorization: Bearer ' . $channelAccessToken);	
-	$data = ['replyToken' => $event['replyToken'], 'messages' => [['type' => 'text', 'text' => $reply_message]]];	
-	$post_body = json_encode($data);	
+	$post_header = array('Content-Type: application/json', 'Authorization: Bearer ' . $channelAccessToken);
+	$data = ['replyToken' => $event['replyToken'], 'messages' => [['type' => 'text', 'text' => $reply_message]]];
+	$post_body = json_encode($data);
 	//$send_result = replyMessage('https://api.line.me/v2/bot/message/reply', $post_header, $post_body);
 	$send_result = send_reply_message('https://api.line.me/v2/bot/message/reply', $post_header, $post_body);
 }
@@ -76,28 +114,28 @@ foreach ($request_json['events'] as $event)
 function mySQL_selectAll($url)
 {
 	$result = file_get_contents($url);
-	
+
 	$result_json = json_decode($result, true); //var_dump($result_json);
-	
+
 	//$data = "ผลลัพธ์:\r\n";
-		
+
 	//foreach($result_json as $values) {
 	//	$data .= $values["user_stuid"] . " " . $values["user_firstname"] . " " . $values["user_lastname"] . "\r\n";
 	//}
-	
+
 	return $result_json;
 }
 
 function replyMessage($url, $post_header, $post_body)
 {
-        $context = stream_context_create([
-            'http' => [
-                'method' => 'POST',
-                'header' => $post_header,
-                'content' => $post_body,
-            ],
-        ]);
-	
+	$context = stream_context_create([
+		'http' => [
+			'method' => 'POST',
+			'header' => $post_header,
+			'content' => $post_body,
+		],
+	]);
+
 	$result = file_get_contents($url, false, $context);
 
 	return $result;
@@ -105,18 +143,16 @@ function replyMessage($url, $post_header, $post_body)
 
 function send_reply_message($url, $post_header, $post_body)
 {
-	$ch = curl_init($url);	
+	$ch = curl_init($url);
 	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($ch, CURLOPT_HTTPHEADER, $post_header);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $post_body);
 	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-	
+
 	$result = curl_exec($ch);
-	
+
 	curl_close($ch);
-	
+
 	return $result;
 }
-
-?>
