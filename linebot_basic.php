@@ -71,7 +71,7 @@ foreach ($request_json['events'] as $event) {
 								"type" => "box",
 								"layout" => "vertical",
 								"contents" => [
-									["type" => "text", "text" => "สินค้า: Cappuccino", "weight" => "bold", "ชื่อร้าน" => "Sightglass Coffee"],
+									["type" => "text", "text" => "สินค้า: Cappuccino", "weight" => "bold", "size" => "xl"],
 									["type" => "text", "text" => "สถานที่: San Francisco"]
 								]
 							],
